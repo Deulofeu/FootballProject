@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">FootballApp</string>
+    <string name="leagues">Лиги</string>
+    <string name="place">#</string>
+    <string name="standing">Таблица</string>
+    <string name="team">Команда</string>
+    <string name="played">И</string>
+    <string name="won">В</string>
+    <string name="drawn">Н</string>
+    <string name="lost">П</string>
+    <string name="goals_difference">Г</string>
+    <string name="points">О</string>
+</resources>

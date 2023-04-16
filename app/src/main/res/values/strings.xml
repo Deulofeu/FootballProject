@@ -8,8 +8,6 @@
     <string name="won">W</string>
     <string name="drawn">D</string>
     <string name="lost">L</string>
-    <string name="goals_for">GF</string>
-    <string name="goals_against">GA</string>
     <string name="goals_difference">GD</string>
     <string name="points">PTS</string>
 </resources>
