@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
+    android:paddingBottom="15dp">
+
+    <TextView
+        android:id="@+id/tvPosition"
+        android:layout_width="17dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        android:gravity="center"
+        android:text="1"
+        android:textSize="12sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivEmblem"
+        android:layout_width="20dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/tvPosition"
+        android:src="@drawable/logo"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/ivEmblem"
+        android:layout_toStartOf="@+id/tvPlayed"
+        android:gravity="left"
+        android:text="Barcelona"
+        android:textSize="12sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPlayed"
+        android:layout_width="17dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_toLeftOf="@+id/tvWon"
+        android:gravity="center"
+        android:text="30"
+        android:textSize="12sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvWon"
+        android:layout_width="17dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginEnd="10dp"
+        android:text="20"
+        android:textSize="12sp"
+        android:layout_toLeftOf="@+id/tvDrawn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvDrawn"
+        android:layout_width="17dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_toLeftOf="@+id/tvLost"
+        android:gravity="center"
+        android:text="5"
+        android:textSize="12sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvLost"
+        android:layout_width="17dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_toLeftOf="@+id/tvGoalsDifference"
+        android:gravity="center"
+        android:text="5"
+        android:textSize="12sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvGoalsDifference"
+        android:layout_width="17dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_toLeftOf="@+id/tvPoints"
+        android:gravity="center"
+        android:text="55"
+        android:textSize="12sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvPoints"
+        android:textStyle="bold"
+        android:layout_width="17dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="65"
+        android:textSize="12sp" />
+
+</RelativeLayout>

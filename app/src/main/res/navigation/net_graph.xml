@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/leaguesFragment">
+
+    <fragment
+        android:id="@+id/leaguesFragment"
+        android:name="com.example.footballproject.ui.leagues.LeaguesFragment"
+        android:label="LeaguesFragment"
+        tools:layout="@layout/leagues_fragment">
+        <action
+            android:id="@+id/action_leaguesFragment_to_leagueTableFragment"
+            app:destination="@+id/leagueTableFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/leagueTableFragment"
+        android:name="com.example.footballproject.ui.table.LeagueTableFragment"
+        android:label="LeagueTableFragment"
+        tools:layout="@layout/league_table_fragment">
+        <argument
+            android:name="leagueCode"
+            app:argType="string" />
+        <argument
+            android:name="leagueName"
+            app:argType="string" />
+        <argument
+            android:name="leagueEmblem"
+            app:argType="string" />
+    </fragment>
+
+</navigation>
