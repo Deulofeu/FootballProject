@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">FootballProject</string>
+    <string name="app_name">FootballApp</string>
+    <string name="leagues">Leagues</string>
+    <string name="place">#</string>
+    <string name="standing">Table</string>
+    <string name="team">Team</string>
+    <string name="played">P</string>
+    <string name="won">W</string>
+    <string name="drawn">D</string>
+    <string name="lost">L</string>
+    <string name="goals_for">GF</string>
+    <string name="goals_against">GA</string>
+    <string name="goals_difference">GD</string>
+    <string name="points">PTS</string>
 </resources>
