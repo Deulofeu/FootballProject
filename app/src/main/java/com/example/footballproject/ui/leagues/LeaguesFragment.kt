@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.footballproject.databinding.LeaguesFragmentBinding
 import com.example.footballproject.domain.leagues.CompetitionView
-import com.example.footballproject.domain.leagues.LeaguesView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,10 +17,8 @@ class LeaguesFragment : Fragment() {
 
     private var _binding: LeaguesFragmentBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: LeaguesViewModel by viewModels()
-
-    private var leaguesAdapter = LeaguesAdapter(::onItemClicked)
+    private val leaguesAdapter = LeaguesAdapter(::onItemClicked)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,8 +31,7 @@ class LeaguesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvLeagues.adapter = leaguesAdapter
-        binding.rvLeagues.layoutManager = LinearLayoutManager(activity)
+        setupRecyclerView()
 
         viewModel.viewLeagues.observe(viewLifecycleOwner) { leagues ->
             when (leagues) {
@@ -63,6 +59,11 @@ class LeaguesFragment : Fragment() {
                 viewState.emblem
             )
         )
+    }
+
+    private fun setupRecyclerView() {
+        binding.rvLeagues.adapter = leaguesAdapter
+        binding.rvLeagues.layoutManager = LinearLayoutManager(activity)
     }
 
     override fun onDestroyView() {

@@ -1,4 +1,6 @@
-package com.example.footballproject.domain.table
+package com.example.footballproject.ui.table
+
+import com.example.footballproject.domain.table.StandingView
 
 sealed class LeagueTableView {
     object Loading : LeagueTableView()

@@ -1,13 +1,14 @@
 package com.example.footballproject.data.mappers.leagues
 
+import com.example.footballproject.data.database.LeaguesDatabaseEntity
 import com.example.footballproject.data.model.leagues.CompetitionResponse
 import com.example.footballproject.domain.leagues.Competition
 import com.example.footballproject.domain.leagues.CompetitionView
 import javax.inject.Inject
 
 class LeaguesMapper @Inject constructor() {
-    operator fun invoke(competitionXEntity: CompetitionResponse): Competition =
-        with(competitionXEntity) {
+    operator fun invoke(competitionEntity: CompetitionResponse): Competition =
+        with(competitionEntity) {
             return Competition(
                 code = code.orEmpty(),
                 emblem = emblem.orEmpty(),
@@ -17,13 +18,25 @@ class LeaguesMapper @Inject constructor() {
             )
         }
 
-    fun competitionToCompetitionViewStateMapper(competitionX: Competition): CompetitionView {
+    fun competitionToCompetitionViewStateMapper(competition: Competition): CompetitionView {
         return CompetitionView(
-            competitionX.code,
-            competitionX.emblem,
-            competitionX.id,
-            competitionX.name,
-            competitionX.type
+            competition.code,
+            competition.emblem,
+            competition.id,
+            competition.name,
+            competition.type
         )
+    }
+
+    fun leaguesDatabaseMapper(competition: List<Competition>): List<LeaguesDatabaseEntity> {
+        return competition.map {
+            LeaguesDatabaseEntity(
+                it.code,
+                it.emblem,
+                it.id,
+                it.name,
+                it.type
+            )
+        }
     }
 }

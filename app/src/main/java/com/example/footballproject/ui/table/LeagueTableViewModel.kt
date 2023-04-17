@@ -4,29 +4,32 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.footballproject.R
 import com.example.footballproject.Result
 import com.example.footballproject.data.mappers.table.LeagueTableMapper
 import com.example.footballproject.domain.FootballRepository
-import com.example.footballproject.domain.table.LeagueTableView
 import com.example.footballproject.domain.table.StandingView
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import javax.inject.Inject
 
 @HiltViewModel
 class LeagueTableViewModel @Inject constructor(
     private val repository: FootballRepository,
     private val mapper: LeagueTableMapper,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.Main
 ): ViewModel() {
 
     private val _viewLeagueTable = MutableLiveData<LeagueTableView>()
     val viewLeagueTable: LiveData<LeagueTableView> get() = _viewLeagueTable
 
-    fun getLeagueTable(code: String) = viewModelScope.launch(dispatcher) {
+    private val _errorViewLeagues = MutableLiveData<Int>()
+    val errorViewLeagues: LiveData<Int> get() = _errorViewLeagues
+
+    private val exceptionHandler = CoroutineExceptionHandler { _, ex ->
+        _errorViewLeagues.value = R.string.unknown_error
+    }
+
+    fun getLeagueTable(code: String) = viewModelScope.launch(exceptionHandler) {
         _viewLeagueTable.postValue(LeagueTableView.Loading)
         while (true) {
             when (val result = repository.getLeagueTable(code)) {
@@ -48,7 +51,7 @@ class LeagueTableViewModel @Inject constructor(
                         ))
                 }
             }
-            delay(60000)
+            delay(6000)
         }
     }
 }

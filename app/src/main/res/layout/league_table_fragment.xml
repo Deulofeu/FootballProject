@@ -1,140 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tvLeagueTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
-        tools:text="Premier League"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Premier League" />
 
     <ImageView
         android:id="@+id/ivLeagueEmblem"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvLeagueTitle"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvLeagueTitle" />
 
     <RelativeLayout
-        android:layout_marginTop="7dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
         app:layout_constraintTop_toBottomOf="@+id/ivLeagueEmblem">
 
 
         <TextView
             android:id="@+id/tvPosition"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_width="17dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="5dp"
             android:gravity="center"
             android:text="@string/place"
-            android:textSize="14sp"
+            android:textSize="12sp"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
-            android:textStyle="bold"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/tvPosition"
+            android:layout_marginStart="5dp"
             android:layout_toStartOf="@+id/tvPlayed"
+            android:layout_toEndOf="@+id/tvPosition"
             android:gravity="left"
             android:text="@string/team"
-            android:textSize="14sp"
+            android:textSize="12sp"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvPlayed"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
+            android:layout_width="17dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="10dp"
             android:layout_toLeftOf="@+id/tvWon"
             android:gravity="center"
             android:text="@string/played"
-            android:textSize="14sp"
+            android:textSize="12sp"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvWon"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
+            android:layout_width="17dp"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginEnd="17dp"
-            android:text="@string/won"
-            android:textSize="14sp"
+            android:layout_marginEnd="10dp"
             android:layout_toLeftOf="@+id/tvDrawn"
+            android:gravity="center"
+            android:text="@string/won"
+            android:textSize="12sp"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvDrawn"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
+            android:layout_width="17dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="18dp"
+            android:layout_marginEnd="10dp"
             android:layout_toLeftOf="@+id/tvLost"
             android:gravity="center"
             android:text="@string/drawn"
-            android:textSize="14sp"
+            android:textSize="12sp"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvLost"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
+            android:layout_width="17dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="10dp"
             android:layout_toLeftOf="@+id/tvGoalsDifference"
             android:gravity="center"
             android:text="@string/lost"
-            android:textSize="14sp"
+            android:textSize="12sp"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvGoalsDifference"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
+            android:layout_width="18dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="6dp"
+            android:layout_marginEnd="5dp"
             android:layout_toLeftOf="@+id/tvPoints"
             android:gravity="center"
             android:text="@string/goals_difference"
-            android:textSize="14sp"
+            android:textSize="12sp"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvPoints"
-            android:textStyle="bold"
-            android:layout_width="wrap_content"
+            android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="5dp"
+            android:gravity="center"
             android:text="@string/points"
-            android:textSize="14sp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTable"
-            android:paddingBottom="210dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_below="@+id/tvPosition"
+            android:layout_marginTop="7dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvPosition"
+            android:paddingBottom="210dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </RelativeLayout>
 
@@ -142,12 +143,12 @@
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="30dp"
-        android:minWidth="30dp"
         android:indeterminateTint="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
+        android:minWidth="30dp"
+        android:minHeight="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
