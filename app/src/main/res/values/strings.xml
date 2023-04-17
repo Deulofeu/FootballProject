@@ -10,4 +10,6 @@
     <string name="lost">L</string>
     <string name="goals_difference">GD</string>
     <string name="points">PTS</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="update">Information will be added later</string>
 </resources>

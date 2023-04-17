@@ -1,40 +1,28 @@
 package com.example.footballproject.ui.leagues
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.footballproject.R
+import com.example.footballproject.CoilImageLoader.loadImage
 import com.example.footballproject.databinding.RvLeaguesBinding
 import com.example.footballproject.domain.leagues.CompetitionView
-import com.example.footballproject.CoilImageLoader.loadImage
 
 class LeaguesAdapter(
     val onItemClicked: (CompetitionView) -> Unit
-): RecyclerView.Adapter<LeaguesAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<LeaguesAdapter.ViewHolder>() {
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(private val binding: RvLeaguesBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(competitionXViewState: CompetitionView) {
-            val bind = RvLeaguesBinding.bind(itemView)
-            itemView.setOnClickListener {
-                onItemClicked(competitionXViewState)
-            }
-            bind.apply {
+            with(binding) {
+                itemView.setOnClickListener {
+                    onItemClicked(competitionXViewState)
+                }
                 ivLeaguesImage.loadImage(competitionXViewState.emblem)
                 tvLeaguesName.text = competitionXViewState.name
             }
-        }
-    }
-
-    private val differCallback = object: DiffUtil.ItemCallback<CompetitionView>() {
-        override fun areItemsTheSame(oldItem: CompetitionView, newItem: CompetitionView): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(oldItem: CompetitionView, newItem: CompetitionView): Boolean {
-            return oldItem == newItem
         }
     }
 
@@ -42,7 +30,7 @@ class LeaguesAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.rv_leagues, parent, false)
+            RvLeaguesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -52,5 +40,24 @@ class LeaguesAdapter(
 
     override fun getItemCount(): Int {
         return differ.currentList.size
+    }
+
+    companion object {
+
+        private val differCallback = object : DiffUtil.ItemCallback<CompetitionView>() {
+            override fun areItemsTheSame(
+                oldItem: CompetitionView,
+                newItem: CompetitionView
+            ): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(
+                oldItem: CompetitionView,
+                newItem: CompetitionView
+            ): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }

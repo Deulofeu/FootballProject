@@ -1,43 +1,31 @@
 package com.example.footballproject.ui.table
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.footballproject.R
+import com.example.footballproject.CoilImageLoader.loadImage
 import com.example.footballproject.databinding.RvTableBinding
 import com.example.footballproject.domain.table.TableView
-import com.example.footballproject.CoilImageLoader.loadImage
 
 class LeagueTableAdapter(
-): RecyclerView.Adapter<LeagueTableAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<LeagueTableAdapter.ViewHolder>() {
 
-    inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind(tableViewState: TableView) {
-            val bind = RvTableBinding.bind(itemView)
-            bind.apply {
-                tvPosition.text = tableViewState.position.toString()
-                ivEmblem.loadImage(tableViewState.team.crest)
-                tvName.text = tableViewState.team.name
-                tvPlayed.text = tableViewState.playedGames.toString()
-                tvWon.text = tableViewState.won.toString()
-                tvDrawn.text = tableViewState.draw.toString()
-                tvLost.text = tableViewState.lost.toString()
-                tvGoalsDifference.text = tableViewState.goalDifference.toString()
-                tvPoints.text = tableViewState.points.toString()
+    inner class ViewHolder(private val binding: RvTableBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(tableView: TableView) {
+            with(binding) {
+                tvPosition.text = tableView.position.toString()
+                ivEmblem.loadImage(tableView.team.crest)
+                tvName.text = tableView.team.name
+                tvPlayed.text = tableView.playedGames.toString()
+                tvWon.text = tableView.won.toString()
+                tvDrawn.text = tableView.draw.toString()
+                tvLost.text = tableView.lost.toString()
+                tvGoalsDifference.text = tableView.goalDifference.toString()
+                tvPoints.text = tableView.points.toString()
             }
-        }
-    }
-
-    private val differCallback = object: DiffUtil.ItemCallback<TableView>() {
-        override fun areItemsTheSame(oldItem: TableView, newItem: TableView): Boolean {
-            return oldItem.position == newItem.position
-        }
-
-        override fun areContentsTheSame(oldItem: TableView, newItem: TableView): Boolean {
-            return oldItem == newItem
         }
     }
 
@@ -45,7 +33,7 @@ class LeagueTableAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.rv_table, parent, false)
+            RvTableBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
@@ -55,5 +43,17 @@ class LeagueTableAdapter(
 
     override fun getItemCount(): Int {
         return differ.currentList.size
+    }
+
+    companion object {
+        private val differCallback = object : DiffUtil.ItemCallback<TableView>() {
+
+            override fun areItemsTheSame(oldItem: TableView, newItem: TableView): Boolean {
+                return oldItem.position == newItem.position
+            }
+            override fun areContentsTheSame(oldItem: TableView, newItem: TableView): Boolean {
+                return oldItem == newItem
+            }
+        }
     }
 }

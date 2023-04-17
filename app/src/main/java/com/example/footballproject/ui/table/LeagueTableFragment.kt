@@ -9,12 +9,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.footballproject.CoilImageLoader.loadImage
 import com.example.footballproject.R
 import com.example.footballproject.databinding.LeagueTableFragmentBinding
-import com.example.footballproject.domain.table.LeagueTableView
-import com.example.footballproject.CoilImageLoader.loadImage
 import dagger.hilt.android.AndroidEntryPoint
-import java.io.IOException
 
 @AndroidEntryPoint
 class LeagueTableFragment : Fragment() {
@@ -23,6 +21,7 @@ class LeagueTableFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: LeagueTableViewModel by viewModels()
     private val tablesAdapter = LeagueTableAdapter()
+    private val args: LeagueTableFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,26 +34,15 @@ class LeagueTableFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvTable.adapter = tablesAdapter
-        binding.rvTable.layoutManager = LinearLayoutManager(activity)
-
-        val args: LeagueTableFragmentArgs by navArgs()
-        args.let {
-            try {
-                binding.ivLeagueEmblem.loadImage(it.leagueEmblem)
-                binding.tvLeagueTitle.text = it.leagueName
-                viewModel.getLeagueTable(it.leagueCode)
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-        }
+        setupRecyclerView()
+        initArgs()
 
         viewModel.viewLeagueTable.observe(viewLifecycleOwner) { standings ->
             when (standings) {
                 is LeagueTableView.ContentLeagueTable -> {
                     binding.progressBar.visibility = View.GONE
-                    if (standings.standings[0].stage == "GROUP_STAGE") {
-                        Toast.makeText(context, "information will be added later", Toast.LENGTH_SHORT).show()
+                    if (standings.standings[0].stage == GROUP_STAGE) {
+                        Toast.makeText(context, R.string.update, Toast.LENGTH_SHORT).show()
                     } else {
                         tablesAdapter.differ.submitList(standings.standings[0].table)
                     }
@@ -68,6 +56,23 @@ class LeagueTableFragment : Fragment() {
             }
         }
 
+        initTable()
+    }
+
+    private fun setupRecyclerView() {
+        binding.rvTable.adapter = tablesAdapter
+        binding.rvTable.layoutManager = LinearLayoutManager(activity)
+    }
+
+    private fun initArgs() {
+        args.let {
+            binding.ivLeagueEmblem.loadImage(it.leagueEmblem)
+            binding.tvLeagueTitle.text = it.leagueName
+            viewModel.getLeagueTable(it.leagueCode)
+        }
+    }
+
+    private fun initTable() {
         binding.tvName.text = resources.getString(R.string.team)
         binding.tvPlayed.text = resources.getString(R.string.played)
         binding.tvWon.text = resources.getString(R.string.won)
@@ -79,5 +84,9 @@ class LeagueTableFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val GROUP_STAGE: String = "GROUP_STAGE"
     }
 }
