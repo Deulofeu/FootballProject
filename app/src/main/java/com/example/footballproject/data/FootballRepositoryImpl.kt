@@ -1,12 +1,13 @@
-package com.example.footballproject.data.network
+package com.example.footballproject.data
 
 import android.util.Log
 import com.example.footballproject.Result
+import com.example.footballproject.data.database.LeaguesDatabase
 import com.example.footballproject.data.mappers.leagues.LeaguesMapper
 import com.example.footballproject.data.mappers.table.LeagueTableMapper
+import com.example.footballproject.data.network.FootballService
 import com.example.footballproject.domain.leagues.Leagues
 import com.example.footballproject.domain.FootballRepository
-import com.example.footballproject.domain.leagues.Competition
 import com.example.footballproject.domain.table.LeagueTable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -14,21 +15,30 @@ import javax.inject.Inject
 
 class FootballRepositoryImpl @Inject constructor(
     private val service: FootballService,
-    private val competitionXEntityToCompetitionXMapper: LeaguesMapper,
-    private val leagueTableEntityToLeagueTableMapper: LeagueTableMapper
+    private val leaguesMapper: LeaguesMapper,
+    private val leagueTableEntityToLeagueTableMapper: LeagueTableMapper,
+    database: LeaguesDatabase
 ) : FootballRepository {
+    private val dao = database.getLeaguesDatabaseDao()
 
-    override suspend fun getLeagues(): Result<Leagues> {
+    override suspend fun getLeagues(): Result<Leagues?> {
         return withContext(Dispatchers.IO) {
             try {
                 val response = service.getLeagues()
-                val data = Leagues(
-                    response.competitions.map {
-                        competitionXEntityToCompetitionXMapper(it)
-                    }.toMutableList()
-                )
-                if (data.competitions.isNotEmpty()) {
-
+                val data = response.competitions?.map {
+                    leaguesMapper(it)
+                }?.let {
+                    Leagues(
+                        it.toList()
+                    )
+                }
+                if (data?.competitions?.isNotEmpty() == true) {
+                    withContext(Dispatchers.IO) {
+                        leaguesMapper.leaguesDatabaseMapper(data.competitions)?.let {
+                            dao.deleteAllFromTable()
+                            dao.insertAll(it)
+                        }
+                    }
                     Result.Success(data)
                 } else {
                     Result.Error(IllegalStateException("Empty list"))

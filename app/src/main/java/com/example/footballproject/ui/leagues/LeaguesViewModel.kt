@@ -31,11 +31,11 @@ class LeaguesViewModel @Inject constructor(
                 _viewLeagues.postValue(LeaguesView.Error)
             }
             is Result.Success -> {
-                val leagues = result.data.competitions.map { league ->
+                val leagues = result.data?.competitions?.map { league ->
                     mapper.competitionToCompetitionViewStateMapper(league)
-                }.toMutableList()
+                }?.toList()
                 _viewLeagues.postValue(
-                    LeaguesView.ContentLeagues(leagues)
+                    leagues?.let { LeaguesView.ContentLeagues(it) }
                 )
             }
         }

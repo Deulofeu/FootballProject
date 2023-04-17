@@ -6,6 +6,6 @@ import com.example.footballproject.domain.table.LeagueTable
 
 interface FootballRepository {
 
-    suspend fun getLeagues(): Result<Leagues>
+    suspend fun getLeagues(): Result<Leagues?>
     suspend fun getLeagueTable(code: String): Result<LeagueTable>
 }
