@@ -15,24 +15,22 @@ import javax.inject.Inject
 class FootballRepositoryImpl @Inject constructor(
     private val service: FootballService,
     private val leaguesMapper: LeaguesMapper,
-    private val leagueTableEntityToLeagueTableMapper: LeagueTableMapper,
+    private val leagueTableMapper: LeagueTableMapper,
     database: LeaguesDatabase
 ) : FootballRepository {
     private val dao = database.getLeaguesDatabaseDao()
 
-    override suspend fun getLeagues(): Result<Leagues?> {
+    override suspend fun getLeagues(): Result<Leagues> {
         return withContext(Dispatchers.IO) {
             val response = service.getLeagues()
-            val data = response.competitions?.map {
-                leaguesMapper(it)
-            }?.let {
-                Leagues(
-                    it.toList()
-                )
-            }
-            if (data?.competitions?.isNotEmpty() == true) {
+            val data = Leagues(
+                response.competitions?.map {
+                    leaguesMapper(it)
+                }!!.toList()
+            )
+            if (data.competitions.isNotEmpty()) {
                 withContext(Dispatchers.IO) {
-                    leaguesMapper.leaguesDatabaseMapper(data.competitions)?.let {
+                    leaguesMapper.leaguesDatabaseMapper(data.competitions).let {
                         dao.deleteAllFromTable()
                         dao.insertAll(it)
                     }
@@ -47,7 +45,7 @@ class FootballRepositoryImpl @Inject constructor(
     override suspend fun getLeagueTable(code: String): Result<LeagueTable> {
         return withContext(Dispatchers.IO) {
             val response = service.getLeagueTable(code)
-            val data = leagueTableEntityToLeagueTableMapper.invoke(response)
+            val data = leagueTableMapper.invoke(response)
             if (data.standings.isNotEmpty()) {
                 Result.Success(data)
             } else {

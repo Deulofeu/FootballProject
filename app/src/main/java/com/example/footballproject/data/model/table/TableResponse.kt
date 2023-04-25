@@ -3,13 +3,13 @@ package com.example.footballproject.data.model.table
 import com.google.gson.annotations.SerializedName
 
 data class TableResponse(
-    @SerializedName("position") val position: Int,
-    @SerializedName("team") val team: TeamResponse,
-    @SerializedName("playedGames") val playedGames: Int,
-    @SerializedName("won") val won: Int,
-    @SerializedName("draw") val draw: Int,
-    @SerializedName("lost") val lost: Int,
-    @SerializedName("form") val form: String,
-    @SerializedName("goalDifference") val goalDifference: Int,
-    @SerializedName("points") val points: Int,
+    @SerializedName("position") val position: Int? = null,
+    @SerializedName("team") val team: TeamResponse? = null,
+    @SerializedName("playedGames") val playedGames: Int? = null,
+    @SerializedName("won") val won: Int? = null,
+    @SerializedName("draw") val draw: Int? = null,
+    @SerializedName("lost") val lost: Int? = null,
+    @SerializedName("form") val form: String? = null,
+    @SerializedName("goalDifference") val goalDifference: Int? = null,
+    @SerializedName("points") val points: Int? = null,
 )

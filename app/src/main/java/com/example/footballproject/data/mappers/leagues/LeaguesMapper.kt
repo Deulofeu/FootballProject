@@ -29,13 +29,13 @@ class LeaguesMapper @Inject constructor() {
     }
 
     fun leaguesDatabaseMapper(competition: List<Competition>): List<LeaguesDatabaseEntity> {
-        return competition.map {
+        return competition.map { leaguesDatabaseEntity ->
             LeaguesDatabaseEntity(
-                it.code,
-                it.emblem,
-                it.id,
-                it.name,
-                it.type
+                leaguesDatabaseEntity.code,
+                leaguesDatabaseEntity.emblem,
+                leaguesDatabaseEntity.id,
+                leaguesDatabaseEntity.name,
+                leaguesDatabaseEntity.type
             )
         }
     }
