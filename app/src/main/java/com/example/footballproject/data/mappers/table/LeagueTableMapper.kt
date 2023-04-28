@@ -8,26 +8,26 @@ class LeagueTableMapper @Inject constructor() {
 
     operator fun invoke(leagueTableEntity: LeagueTableResponse): LeagueTable {
         return LeagueTable(
-            leagueTableEntity.standings!!.map { standingResponse ->
+            leagueTableEntity.standings?.map { standingResponse ->
                 Standing(
-                    standingResponse.stage.toString(),
-                    standingResponse.table!!.map { tableEntity ->
+                    standingResponse.stage ?: "",
+                    standingResponse.table?.map { tableEntity ->
                         Table(
-                            tableEntity.position!!,
+                            tableEntity.position ?: 0,
                             Team(
-                                tableEntity.team?.crest!!,
-                                tableEntity.team.name!!
+                                tableEntity.team?.crest ?: "",
+                                tableEntity.team?.name ?: ""
                             ),
-                            tableEntity.playedGames!!,
-                            tableEntity.won!!,
-                            tableEntity.draw!!,
-                            tableEntity.lost!!,
-                            tableEntity.goalDifference!!,
-                            tableEntity.points!!
+                            tableEntity.playedGames ?: 0,
+                            tableEntity.won ?: 0,
+                            tableEntity.draw ?: 0,
+                            tableEntity.lost ?: 0,
+                            tableEntity.goalDifference ?: 0,
+                            tableEntity.points ?: 0
                         )
-                    }
+                    } ?: listOf()
                 )
-            }
+            } ?: listOf()
         )
     }
 

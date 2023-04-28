@@ -26,7 +26,7 @@ class FootballRepositoryImpl @Inject constructor(
             val data = Leagues(
                 response.competitions?.map {
                     leaguesMapper(it)
-                }!!.toList()
+                }?.toList() ?: listOf()
             )
             if (data.competitions.isNotEmpty()) {
                 withContext(Dispatchers.IO) {

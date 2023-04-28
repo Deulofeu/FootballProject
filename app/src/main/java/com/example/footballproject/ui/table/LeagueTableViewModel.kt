@@ -23,7 +23,7 @@ class LeagueTableViewModel @Inject constructor(
     val viewLeagueTable: LiveData<LeagueTableView> get() = _viewLeagueTable
 
     private val _errorViewLeagues = MutableLiveData<Int>()
-    val errorViewLeagues: LiveData<Int> get() = _errorViewLeagues
+    val errorViewLeague: LiveData<Int> get() = _errorViewLeagues
 
     private val exceptionHandler = CoroutineExceptionHandler { _, ex ->
         _errorViewLeagues.value = R.string.unknown_error

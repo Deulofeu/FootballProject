@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         bottomNavView.setOnItemSelectedListener { item ->
             NavigationUI.onNavDestinationSelected(item, navController)
             navController.popBackStack(item.itemId, inclusive = false)
-            true
         }
     }
 }
