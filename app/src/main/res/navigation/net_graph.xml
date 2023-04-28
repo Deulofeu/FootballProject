@@ -6,6 +6,14 @@
     app:startDestination="@id/leaguesFragment">
 
     <fragment
+        android:id="@+id/allMatchesFragment"
+        android:name="com.example.footballproject.ui.matches.AllMatchesFragment"
+        android:label="AllMatchesFragment"
+        tools:layout="@layout/all_matches_fragment">
+
+    </fragment>
+
+    <fragment
         android:id="@+id/leaguesFragment"
         android:name="com.example.footballproject.ui.leagues.LeaguesFragment"
         android:label="LeaguesFragment"

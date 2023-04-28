@@ -11,6 +11,7 @@
         android:layout_width="17dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
+        android:layout_marginTop="3dp"
         android:layout_marginStart="5dp"
         android:gravity="center"
         android:text="1"
@@ -23,13 +24,14 @@
         android:layout_height="24dp"
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@+id/tvPosition"
-        android:src="@drawable/logo"
+        android:src="@drawable/ic_logo"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@+id/ivEmblem"
         android:layout_toStartOf="@+id/tvPlayed"
@@ -43,6 +45,7 @@
         android:layout_width="17dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
+        android:layout_marginTop="3dp"
         android:layout_toLeftOf="@+id/tvWon"
         android:gravity="center"
         android:text="30"
@@ -55,6 +58,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginEnd="10dp"
+        android:layout_marginTop="3dp"
         android:text="20"
         android:textSize="12sp"
         android:layout_toLeftOf="@+id/tvDrawn"
@@ -63,6 +67,7 @@
     <TextView
         android:id="@+id/tvDrawn"
         android:layout_width="17dp"
+        android:layout_marginTop="3dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:layout_toLeftOf="@+id/tvLost"
@@ -74,6 +79,7 @@
     <TextView
         android:id="@+id/tvLost"
         android:layout_width="17dp"
+        android:layout_marginTop="3dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:layout_toLeftOf="@+id/tvGoalsDifference"
@@ -85,6 +91,7 @@
     <TextView
         android:id="@+id/tvGoalsDifference"
         android:layout_width="17dp"
+        android:layout_marginTop="3dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:layout_toLeftOf="@+id/tvPoints"
@@ -97,6 +104,7 @@
         android:id="@+id/tvPoints"
         android:textStyle="bold"
         android:layout_width="17dp"
+        android:layout_marginTop="3dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="8dp"

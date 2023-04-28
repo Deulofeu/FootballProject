@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">FootballApp</string>
     <string name="leagues">Лиги</string>
+    <string name="all_matches">Игры</string>
     <string name="place">#</string>
     <string name="standing">Таблица</string>
     <string name="team">КОМАНДА</string>
