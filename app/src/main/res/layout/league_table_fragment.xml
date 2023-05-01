@@ -129,13 +129,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTable"
-            android:layout_marginTop="7dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvPosition"
-            android:paddingBottom="210dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginTop="7dp"
+            android:paddingBottom="215dp" />
 
     </RelativeLayout>
 
