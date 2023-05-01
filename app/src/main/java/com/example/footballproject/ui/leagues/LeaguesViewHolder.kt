@@ -10,13 +10,13 @@ class LeaguesViewHolder(
     private val onItemClicked: (CompetitionView) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(competitionXViewState: CompetitionView) {
+    fun bind(competitionView: CompetitionView) {
         with(binding) {
             itemView.setOnClickListener {
-                onItemClicked(competitionXViewState)
+                onItemClicked(competitionView)
             }
-            ivLeaguesImage.loadImage(competitionXViewState.emblem)
-            tvLeaguesName.text = competitionXViewState.name
+            ivLeaguesImage.loadImage(competitionView.emblem)
+            tvLeaguesName.text = competitionView.name
         }
     }
 }
