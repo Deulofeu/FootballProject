@@ -36,7 +36,7 @@ class MatchesTodayFragment : Fragment() {
 
         viewModel.viewMatchesToday.observe(viewLifecycleOwner) { matches ->
             when (matches) {
-                is MatchesTodayViewState.ContentMatchesToday -> {
+                is MatchesTodayView.ContentMatchesToday -> {
                     binding.progressBar.visibility = View.GONE
                     mAvailableMatches = ArrayList()
                     for (match in matches.matchesToday.matches) {
@@ -56,10 +56,10 @@ class MatchesTodayFragment : Fragment() {
                     mMatchesTodayAdapter.differ.submitList(sorted)
 
                 }
-                is MatchesTodayViewState.Error -> {
+                is MatchesTodayView.Error -> {
                     binding.progressBar.visibility = View.GONE
                 }
-                is MatchesTodayViewState.Loading -> {
+                is MatchesTodayView.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
             }

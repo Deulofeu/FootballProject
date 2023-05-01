@@ -9,7 +9,7 @@ import com.example.footballproject.databinding.RvLeaguesBinding
 import com.example.footballproject.domain.leagues.CompetitionView
 
 class LeaguesAdapter(
-    val onItemClicked: (CompetitionView) -> Unit
+    private val onItemClicked: (CompetitionView) -> Unit
 ) : RecyclerView.Adapter<LeaguesViewHolder>() {
 
 

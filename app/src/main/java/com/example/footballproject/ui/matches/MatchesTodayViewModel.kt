@@ -21,8 +21,8 @@ class MatchesTodayViewModel @Inject constructor(
     private val matchesMapper: MatchesMapper
 ) : ViewModel() {
 
-    private val _viewMatchesToday = MutableLiveData<MatchesTodayViewState>()
-    val viewMatchesToday: LiveData<MatchesTodayViewState> get() = _viewMatchesToday
+    private val _viewMatchesToday = MutableLiveData<MatchesTodayView>()
+    val viewMatchesToday: LiveData<MatchesTodayView> get() = _viewMatchesToday
 
     private val _errorViewMatches = MutableLiveData<Int>()
     val errorViewMatches: LiveData<Int> get() = _errorViewMatches
@@ -32,11 +32,11 @@ class MatchesTodayViewModel @Inject constructor(
     }
 
     fun getMatchesToday() = viewModelScope.launch(exceptionHandler) {
-        _viewMatchesToday.postValue(MatchesTodayViewState.Loading)
+        _viewMatchesToday.postValue(MatchesTodayView.Loading)
         while (true) {
             when (val result = repository.getMatches()) {
                 is Result.Error -> {
-                    _viewMatchesToday.postValue(MatchesTodayViewState.Error)
+                    _viewMatchesToday.postValue(MatchesTodayView.Error)
                 }
                 is Result.Success -> {
                     val matches = MatchesViewState(
@@ -46,7 +46,7 @@ class MatchesTodayViewModel @Inject constructor(
                         }.toList()
                     )
                     _viewMatchesToday.postValue(
-                        MatchesTodayViewState.ContentMatchesToday(
+                        MatchesTodayView.ContentMatchesToday(
                             matches
                         )
                     )
