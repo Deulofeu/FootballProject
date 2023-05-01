@@ -33,12 +33,12 @@ class MatchesMapper @Inject constructor() {
                 ),
                 Score(
                     HalfTime(
-                        score?.halfTime?.away ?: 0,
-                        score?.halfTime?.home ?: 0
+                        score?.halfTime?.home ?: 0,
+                        score?.halfTime?.away ?: 0
                     ),
                     FullTime(
-                        score?.fullTime?.away ?: 0,
-                        score?.fullTime?.home ?: 0
+                        score?.fullTime?.home ?: 0,
+                        score?.fullTime?.away ?: 0
                     ),
                     score?.winner
                 ),
