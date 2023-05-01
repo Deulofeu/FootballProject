@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/leaguesFragment">
+    app:startDestination="@id/matchesFragment">
 
     <fragment
-        android:id="@+id/allMatchesFragment"
-        android:name="com.example.footballproject.ui.matches.AllMatchesFragment"
+        android:id="@+id/matchesFragment"
+        android:name="com.example.footballproject.ui.matches.MatchesTodayFragment"
         android:label="AllMatchesFragment"
-        tools:layout="@layout/all_matches_fragment">
+        tools:layout="@layout/matches_today_fragment">
 
     </fragment>
 

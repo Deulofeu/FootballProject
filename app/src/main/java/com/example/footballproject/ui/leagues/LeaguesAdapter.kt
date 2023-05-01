@@ -5,36 +5,24 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.footballproject.CoilImageLoader.loadImage
 import com.example.footballproject.databinding.RvLeaguesBinding
 import com.example.footballproject.domain.leagues.CompetitionView
 
 class LeaguesAdapter(
     val onItemClicked: (CompetitionView) -> Unit
-) : RecyclerView.Adapter<LeaguesAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<LeaguesViewHolder>() {
 
-    inner class ViewHolder(private val binding: RvLeaguesBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(competitionXViewState: CompetitionView) {
-            with(binding) {
-                itemView.setOnClickListener {
-                    onItemClicked(competitionXViewState)
-                }
-                ivLeaguesImage.loadImage(competitionXViewState.emblem)
-                tvLeaguesName.text = competitionXViewState.name
-            }
-        }
-    }
 
     val differ = AsyncListDiffer(this, differCallback)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            RvLeaguesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeaguesViewHolder {
+        return LeaguesViewHolder(
+            RvLeaguesBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            onItemClicked
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LeaguesViewHolder, position: Int) {
         holder.bind(differ.currentList[position])
     }
 

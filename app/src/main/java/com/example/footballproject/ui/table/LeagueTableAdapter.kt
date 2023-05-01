@@ -5,39 +5,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.footballproject.CoilImageLoader.loadImage
 import com.example.footballproject.databinding.RvTableBinding
 import com.example.footballproject.domain.table.TableView
 
 class LeagueTableAdapter(
-) : RecyclerView.Adapter<LeagueTableAdapter.ViewHolder>() {
-
-    inner class ViewHolder(private val binding: RvTableBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(tableView: TableView) {
-            with(binding) {
-                tvPosition.text = tableView.position.toString()
-                ivEmblem.loadImage(tableView.team.crest)
-                tvName.text = tableView.team.name
-                tvPlayed.text = tableView.playedGames.toString()
-                tvWon.text = tableView.won.toString()
-                tvDrawn.text = tableView.draw.toString()
-                tvLost.text = tableView.lost.toString()
-                tvGoalsDifference.text = tableView.goalDifference.toString()
-                tvPoints.text = tableView.points.toString()
-            }
-        }
-    }
+) : RecyclerView.Adapter<LeagueTableViewHolder>() {
 
     val differ = AsyncListDiffer(this, differCallback)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LeagueTableViewHolder {
+        return LeagueTableViewHolder(
             RvTableBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LeagueTableViewHolder, position: Int) {
         holder.bind(differ.currentList[position])
     }
 
@@ -51,6 +33,7 @@ class LeagueTableAdapter(
             override fun areItemsTheSame(oldItem: TableView, newItem: TableView): Boolean {
                 return oldItem.position == newItem.position
             }
+
             override fun areContentsTheSame(oldItem: TableView, newItem: TableView): Boolean {
                 return oldItem == newItem
             }
