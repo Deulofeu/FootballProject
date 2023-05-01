@@ -41,7 +41,7 @@ class MatchesTodayViewModel @Inject constructor(
                 is Result.Success -> {
                     val matches = MatchesViewState(
                         result.data.matches.map {
-                            it.utcDate = getDate(it.utcDate)!!
+                            it.utcDate = getDate(it.utcDate)
                             matchesMapper.matchToMatchView(it)
                         }.toList()
                     )
@@ -56,7 +56,18 @@ class MatchesTodayViewModel @Inject constructor(
         }
     }
 
-    private fun getDate(dateString: String?): String? {
-        return dateString?.split("T")?.get(0)
+    private fun getDate(dateString: String?): String {
+        val date = dateString?.split("T")?.get(0)?.split("-")
+        var newDate = ""
+        if (date != null) {
+            for (i in date.indices.reversed()) {
+                newDate += if (i != 0) {
+                    (date[i] + "-")
+                } else {
+                    (date[i])
+                }
+            }
+        }
+        return newDate
     }
 }

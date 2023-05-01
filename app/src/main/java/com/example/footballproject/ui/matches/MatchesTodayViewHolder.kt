@@ -11,6 +11,7 @@ class MatchesTodayViewHolder(
 
     fun bind(matchViewState: MatchViewState) {
         with(binding) {
+            tvCompetition.text = matchViewState.competition.name
             ivHomeTeamEmblem.loadImage(matchViewState.homeTeam.crest)
             ivAwayTeamEmblem.loadImage(matchViewState.awayTeam.crest)
             tvHomeTeamName.text = matchViewState.homeTeam.name
