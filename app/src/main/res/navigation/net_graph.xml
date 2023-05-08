@@ -9,9 +9,7 @@
         android:id="@+id/matchesFragment"
         android:name="com.example.footballproject.ui.matches.MatchesTodayFragment"
         android:label="AllMatchesFragment"
-        tools:layout="@layout/matches_today_fragment">
-
-    </fragment>
+        tools:layout="@layout/matches_today_fragment"/>
 
     <fragment
         android:id="@+id/leaguesFragment"

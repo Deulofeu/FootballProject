@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.footballproject.databinding.LeaguesFragmentBinding
-import com.example.footballproject.domain.leagues.CompetitionView
+import com.example.footballproject.ui.models.leagues.CompetitionView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,8 +37,7 @@ class LeaguesFragment : Fragment() {
             when (leagues) {
                 is LeaguesView.ContentLeagues -> {
                     binding.progressBar.visibility = View.GONE
-                    val list: List<CompetitionView> = leagues.leagues
-                    leaguesAdapter.differ.submitList(list)
+                    leaguesAdapter.differ.submitList(leagues.leagues)
                 }
                 is LeaguesView.Error -> {
                     binding.progressBar.visibility = View.GONE
@@ -48,6 +47,7 @@ class LeaguesFragment : Fragment() {
                 }
             }
         }
+
         viewModel.getLeagues()
     }
 

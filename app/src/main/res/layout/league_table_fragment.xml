@@ -21,11 +21,12 @@
         android:id="@+id/ivLeagueEmblem"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:contentDescription="@string/image_league"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvLeagueTitle" />
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="7dp"
@@ -36,24 +37,26 @@
             android:id="@+id/tvPosition"
             android:layout_width="17dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
             android:gravity="center"
+            android:layout_marginStart="5dp"
             android:text="@string/place"
             android:textSize="12sp"
             android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvName"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
-            android:layout_toStartOf="@+id/tvPlayed"
-            android:layout_toEndOf="@+id/tvPosition"
-            android:gravity="left"
+            android:layout_marginEnd="10dp"
+            android:gravity="start"
             android:text="@string/team"
             android:textSize="12sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvPlayed"
+            app:layout_constraintStart_toEndOf="@+id/tvPosition"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -61,11 +64,11 @@
             android:layout_width="17dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:layout_toLeftOf="@+id/tvWon"
             android:gravity="center"
             android:text="@string/played"
             android:textSize="12sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvWon"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -73,11 +76,11 @@
             android:layout_width="17dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:layout_toLeftOf="@+id/tvDrawn"
             android:gravity="center"
             android:text="@string/won"
             android:textSize="12sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvDrawn"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -85,11 +88,11 @@
             android:layout_width="17dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:layout_toLeftOf="@+id/tvLost"
             android:gravity="center"
             android:text="@string/drawn"
             android:textSize="12sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvLost"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -97,11 +100,11 @@
             android:layout_width="17dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:layout_toLeftOf="@+id/tvGoalsDifference"
             android:gravity="center"
             android:text="@string/lost"
             android:textSize="12sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvGoalsDifference"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -109,33 +112,34 @@
             android:layout_width="18dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
-            android:layout_toLeftOf="@+id/tvPoints"
             android:gravity="center"
             android:text="@string/goals_difference"
             android:textSize="12sp"
             android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvPoints"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvPoints"
             android:layout_width="24dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_marginEnd="5dp"
             android:gravity="center"
             android:text="@string/points"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvPosition"
             android:layout_marginTop="7dp"
-            android:paddingBottom="215dp" />
+            android:paddingBottom="240dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvPosition" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"

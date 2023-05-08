@@ -3,7 +3,7 @@ package com.example.footballproject.ui.table
 import androidx.recyclerview.widget.RecyclerView
 import com.example.footballproject.CoilImageLoader.loadImage
 import com.example.footballproject.databinding.RvTableBinding
-import com.example.footballproject.domain.table.TableView
+import com.example.footballproject.ui.models.table.TableView
 
 class LeagueTableViewHolder(
     private val binding: RvTableBinding

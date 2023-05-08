@@ -3,7 +3,7 @@ package com.example.footballproject.ui.matches
 import androidx.recyclerview.widget.RecyclerView
 import com.example.footballproject.CoilImageLoader.loadImage
 import com.example.footballproject.databinding.RvMatchesBinding
-import com.example.footballproject.domain.matches.MatchViewState
+import com.example.footballproject.ui.models.matches.MatchViewState
 
 class MatchesTodayViewHolder(
     private val binding: RvMatchesBinding

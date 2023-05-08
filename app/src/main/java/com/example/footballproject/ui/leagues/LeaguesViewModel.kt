@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.footballproject.R
 import com.example.footballproject.Result
-import com.example.footballproject.data.mappers.leagues.LeaguesMapper
 import com.example.footballproject.domain.FootballRepository
+import com.example.footballproject.ui.mappers.leagues.LeaguesMapperUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -16,15 +16,14 @@ import javax.inject.Inject
 @HiltViewModel
 class LeaguesViewModel @Inject constructor(
     private val repository: FootballRepository,
-    private val mapper: LeaguesMapper,
+    private val mapper: LeaguesMapperUI,
 ) : ViewModel() {
 
     private val _viewLeagues = MutableLiveData<LeaguesView>()
     val viewLeagues: LiveData<LeaguesView> get() = _viewLeagues
     private val _errorViewLeagues = MutableLiveData<Int>()
-    val errorViewLeagues: LiveData<Int> get() = _errorViewLeagues
 
-    private val exceptionHandler = CoroutineExceptionHandler { _, ex ->
+    private val exceptionHandler = CoroutineExceptionHandler { _, _ ->
         _errorViewLeagues.value = R.string.unknown_error
     }
 
@@ -36,7 +35,7 @@ class LeaguesViewModel @Inject constructor(
             }
             is Result.Success -> {
                 val leagues = result.data.competitions.map { league ->
-                    mapper.competitionToCompetitionViewStateMapper(league)
+                    mapper.competitionToCompetitionViewMapper(league)
                 }.toList()
                 _viewLeagues.postValue(
                     leagues.let { LeaguesView.ContentLeagues(it) }

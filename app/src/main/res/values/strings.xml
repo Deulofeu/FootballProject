@@ -11,6 +11,9 @@
     <string name="lost">L</string>
     <string name="goals_difference">GD</string>
     <string name="points">PTS</string>
+    <string name="image_league" translatable="false">League image</string>
+    <string name="image_team" translatable="false">Team image</string>
     <string name="unknown_error">Unknown error</string>
+    <string name="text_matches">No information about matches</string>
     <string name="update">Information will be added later</string>
 </resources>

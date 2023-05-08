@@ -55,8 +55,6 @@ class LeagueTableFragment : Fragment() {
                 }
             }
         }
-
-        initTable()
     }
 
     private fun setupRecyclerView() {
@@ -72,21 +70,12 @@ class LeagueTableFragment : Fragment() {
         }
     }
 
-    private fun initTable() {
-        binding.tvName.text = resources.getString(R.string.team)
-        binding.tvPlayed.text = resources.getString(R.string.played)
-        binding.tvWon.text = resources.getString(R.string.won)
-        binding.tvDrawn.text = resources.getString(R.string.drawn)
-        binding.tvLost.text = resources.getString(R.string.lost)
-        binding.tvPoints.text = resources.getString(R.string.points)
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
     companion object {
-        const val GROUP_STAGE: String = "GROUP_STAGE"
+        private const val GROUP_STAGE: String = "GROUP_STAGE"
     }
 }

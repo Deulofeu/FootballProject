@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.footballproject.databinding.RvMatchesBinding
-import com.example.footballproject.domain.matches.MatchViewState
+import com.example.footballproject.ui.models.matches.MatchViewState
 
 class MatchesTodayAdapter(
 ) : RecyclerView.Adapter<MatchesTodayViewHolder>() {

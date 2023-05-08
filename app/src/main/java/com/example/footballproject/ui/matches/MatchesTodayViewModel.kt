@@ -5,69 +5,54 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.footballproject.R
+import com.example.footballproject.Result
 import com.example.footballproject.domain.FootballRepository
-import com.example.footballproject.domain.matches.MatchesViewState
+import com.example.footballproject.ui.mappers.matches.MatchesMapperUI
+import com.example.footballproject.ui.models.matches.MatchesViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import com.example.footballproject.Result
-import com.example.footballproject.data.mappers.matches.MatchesMapper
-import kotlinx.coroutines.CoroutineExceptionHandler
+
 
 @HiltViewModel
 class MatchesTodayViewModel @Inject constructor(
     private val repository: FootballRepository,
-    private val matchesMapper: MatchesMapper
+    private val matchesMapper: MatchesMapperUI
 ) : ViewModel() {
 
     private val _viewMatchesToday = MutableLiveData<MatchesTodayView>()
     val viewMatchesToday: LiveData<MatchesTodayView> get() = _viewMatchesToday
 
     private val _errorViewMatches = MutableLiveData<Int>()
-    val errorViewMatches: LiveData<Int> get() = _errorViewMatches
 
-    private val exceptionHandler = CoroutineExceptionHandler { _, ex ->
+    private val exceptionHandler = CoroutineExceptionHandler { _, _ ->
         _errorViewMatches.value = R.string.unknown_error
     }
 
     fun getMatchesToday() = viewModelScope.launch(exceptionHandler) {
         _viewMatchesToday.postValue(MatchesTodayView.Loading)
-        while (true) {
-            when (val result = repository.getMatches()) {
-                is Result.Error -> {
-                    _viewMatchesToday.postValue(MatchesTodayView.Error)
-                }
-                is Result.Success -> {
-                    val matches = MatchesViewState(
-                        result.data.matches.map {
-                            it.utcDate = getDate(it.utcDate)
-                            matchesMapper.matchToMatchView(it)
-                        }.toList()
-                    )
-                    _viewMatchesToday.postValue(
-                        MatchesTodayView.ContentMatchesToday(
-                            matches
-                        )
-                    )
-                }
+        when (val result = repository.getMatches()) {
+            is Result.Error -> {
+                _viewMatchesToday.postValue(MatchesTodayView.Error)
             }
-            delay(15000)
-        }
-    }
-
-    private fun getDate(dateString: String?): String {
-        val date = dateString?.split("T")?.get(0)?.split("-")
-        var newDate = ""
-        if (date != null) {
-            for (i in date.indices.reversed()) {
-                newDate += if (i != 0) {
-                    (date[i] + "-")
-                } else {
-                    (date[i])
-                }
+            is Result.Success -> {
+                val matches = MatchesViewState(
+                    result.data.matches.map {
+                        matchesMapper.matchToMatchViewMapper(it)
+                    }.toList().sortedWith(
+                        compareBy(
+                            { it.status },
+                            { it.competition.name },
+                            { it.homeTeam.name })
+                    )
+                )
+                _viewMatchesToday.postValue(
+                    MatchesTodayView.ContentMatchesToday(
+                        matches
+                    )
+                )
             }
         }
-        return newDate
     }
 }

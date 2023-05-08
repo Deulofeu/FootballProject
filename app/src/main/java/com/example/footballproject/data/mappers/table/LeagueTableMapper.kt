@@ -1,7 +1,10 @@
 package com.example.footballproject.data.mappers.table
 
-import com.example.footballproject.data.model.table.LeagueTableResponse
-import com.example.footballproject.domain.table.*
+import com.example.footballproject.data.models.table.LeagueTableResponse
+import com.example.footballproject.domain.table.LeagueTable
+import com.example.footballproject.domain.table.Standing
+import com.example.footballproject.domain.table.Table
+import com.example.footballproject.domain.table.Team
 import javax.inject.Inject
 
 class LeagueTableMapper @Inject constructor() {
@@ -10,13 +13,13 @@ class LeagueTableMapper @Inject constructor() {
         return LeagueTable(
             leagueTableEntity.standings?.map { standingResponse ->
                 Standing(
-                    standingResponse.stage ?: "",
+                    standingResponse.stage.orEmpty(),
                     standingResponse.table?.map { tableEntity ->
                         Table(
                             tableEntity.position ?: 0,
                             Team(
-                                tableEntity.team?.crest ?: "",
-                                tableEntity.team?.name ?: ""
+                                tableEntity.team?.crest.orEmpty(),
+                                tableEntity.team?.name.orEmpty()
                             ),
                             tableEntity.playedGames ?: 0,
                             tableEntity.won ?: 0,
@@ -28,19 +31,6 @@ class LeagueTableMapper @Inject constructor() {
                     } ?: listOf()
                 )
             } ?: listOf()
-        )
-    }
-
-    fun tableToTableViewStateMapper(table: Table): TableView {
-        return TableView(
-            table.position,
-            table.team,
-            table.playedGames,
-            table.won,
-            table.draw,
-            table.lost,
-            table.goalDifference,
-            table.points
         )
     }
 }
