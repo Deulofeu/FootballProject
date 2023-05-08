@@ -3,9 +3,9 @@ package com.example.footballproject.domain.matches
 data class Match(
     val id: Int,
     val competition: Competition,
-    val homeTeam: HomeTeam,
-    val awayTeam: AwayTeam,
+    val homeTeam: Team,
+    val awayTeam: Team,
     val score: Score,
     val status: String,
-    var utcDate: String
+    val utcDate: String
 )

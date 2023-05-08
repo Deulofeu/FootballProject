@@ -1,6 +1,6 @@
 package com.example.footballproject.ui.matches
 
-import com.example.footballproject.domain.matches.MatchesViewState
+import com.example.footballproject.ui.models.matches.MatchesViewState
 
 sealed class MatchesTodayView {
     object Loading : MatchesTodayView()

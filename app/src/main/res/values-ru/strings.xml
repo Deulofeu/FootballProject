@@ -12,5 +12,6 @@
     <string name="goals_difference">РМ</string>
     <string name="points">О</string>
     <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="text_matches">Нет информации о матчах</string>
     <string name="update">Информация будет добавлена позже</string>
 </resources>

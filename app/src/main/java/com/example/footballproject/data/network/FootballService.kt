@@ -1,8 +1,8 @@
 package com.example.footballproject.data.network
 
-import com.example.footballproject.data.model.leagues.LeaguesResponse
-import com.example.footballproject.data.model.matches.MatchesTodayResponse
-import com.example.footballproject.data.model.table.LeagueTableResponse
+import com.example.footballproject.data.models.leagues.LeaguesResponse
+import com.example.footballproject.data.models.matches.MatchesTodayResponse
+import com.example.footballproject.data.models.table.LeagueTableResponse
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path

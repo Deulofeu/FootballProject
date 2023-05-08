@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.footballproject.databinding.RvTableBinding
-import com.example.footballproject.domain.table.TableView
+import com.example.footballproject.ui.models.table.TableView
 
 class LeagueTableAdapter(
 ) : RecyclerView.Adapter<LeagueTableViewHolder>() {

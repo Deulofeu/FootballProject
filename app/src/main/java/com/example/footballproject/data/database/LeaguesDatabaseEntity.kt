@@ -10,6 +10,5 @@ data class LeaguesDatabaseEntity(
     @ColumnInfo(name = "dbCode") val dbCode: String,
     @ColumnInfo(name = "dbEmblem") val dbEmblem: String,
     @ColumnInfo(name = "dbId") val dbId: Int,
-    @ColumnInfo(name = "dbName") val dbName: String,
-    @ColumnInfo(name = "dbType") val dbType: String,
+    @ColumnInfo(name = "dbName") val dbName: String
 )

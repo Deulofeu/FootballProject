@@ -1,14 +1,16 @@
 package com.example.footballproject.ui.matches
 
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.footballproject.databinding.MatchesTodayFragmentBinding
-import com.example.footballproject.domain.matches.MatchViewState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,7 +22,6 @@ class MatchesTodayFragment : Fragment() {
     private val viewModel: MatchesTodayViewModel by viewModels()
 
     private var mMatchesTodayAdapter = MatchesTodayAdapter()
-    private var mAvailableMatches = ArrayList<MatchViewState>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -29,6 +30,7 @@ class MatchesTodayFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -37,23 +39,14 @@ class MatchesTodayFragment : Fragment() {
         viewModel.viewMatchesToday.observe(viewLifecycleOwner) { matches ->
             when (matches) {
                 is MatchesTodayView.ContentMatchesToday -> {
-                    binding.progressBar.visibility = View.GONE
-                    mAvailableMatches = ArrayList()
-                    for (match in matches.matchesToday.matches) {
-                        mAvailableMatches.add(match)
+                    if (matches.matchesToday.matches.isEmpty()) {
+                        binding.progressBar.visibility = View.GONE
+                        binding.ivSad.visibility = View.VISIBLE
+                        binding.textMessage.visibility = View.VISIBLE
+                    } else {
+                        binding.progressBar.visibility = View.GONE
+                        mMatchesTodayAdapter.differ.submitList(matches.matchesToday.matches)
                     }
-
-                    val sorted: List<MatchViewState> =
-                        if (matches.matchesToday.matches.isNotEmpty()) {
-                            matches.matchesToday.matches.sortedWith(
-                                compareBy({ it.status },
-                                    { it.competition.name },
-                                    { it.homeTeam.name })
-                            )
-                        } else {
-                            listOf()
-                        }
-                    mMatchesTodayAdapter.differ.submitList(sorted)
 
                 }
                 is MatchesTodayView.Error -> {
@@ -67,6 +60,7 @@ class MatchesTodayFragment : Fragment() {
 
         viewModel.getMatchesToday()
     }
+
 
     private fun setupRecyclerView() {
         binding.rvMatches.adapter = mMatchesTodayAdapter

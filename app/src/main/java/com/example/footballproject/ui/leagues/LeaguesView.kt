@@ -1,6 +1,6 @@
 package com.example.footballproject.ui.leagues
 
-import com.example.footballproject.domain.leagues.CompetitionView
+import com.example.footballproject.ui.models.leagues.CompetitionView
 
 sealed class LeaguesView {
     object Loading : LeaguesView()
