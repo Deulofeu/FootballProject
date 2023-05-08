@@ -2,7 +2,7 @@ package com.example.footballproject.data
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.example.footballproject.CheckNetworkConnection
+import com.example.footballproject.utils.CheckNetworkConnection
 import com.example.footballproject.Result
 import com.example.footballproject.data.database.LeaguesDatabase
 import com.example.footballproject.data.mappers.leagues.LeaguesMapper

@@ -1,4 +1,4 @@
-package com.example.footballproject
+package com.example.footballproject.utils
 
 import javax.inject.Inject
 
