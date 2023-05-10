@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.footballproject.CoilImageLoader.loadImage
+import com.example.footballproject.utils.CoilImageLoader.loadImage
 import com.example.footballproject.R
 import com.example.footballproject.databinding.LeagueTableFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint

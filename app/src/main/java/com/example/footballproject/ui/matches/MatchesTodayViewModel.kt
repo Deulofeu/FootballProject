@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.footballproject.CheckNetworkConnection
 import com.example.footballproject.R
 import com.example.footballproject.Result
 import com.example.footballproject.domain.FootballRepository
 import com.example.footballproject.ui.mappers.matches.MatchesMapperUI
 import com.example.footballproject.ui.models.matches.MatchesViewState
+import com.example.footballproject.utils.CheckNetworkConnection
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch

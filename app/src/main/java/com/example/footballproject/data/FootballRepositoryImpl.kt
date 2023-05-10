@@ -1,6 +1,6 @@
 package com.example.footballproject.data
 
-import com.example.footballproject.CheckNetworkConnection
+
 import com.example.footballproject.Result
 import com.example.footballproject.data.database.AppDatabase
 import com.example.footballproject.data.mappers.leagues.LeaguesMapper
@@ -11,6 +11,7 @@ import com.example.footballproject.domain.FootballRepository
 import com.example.footballproject.domain.leagues.Leagues
 import com.example.footballproject.domain.matches.MatchesToday
 import com.example.footballproject.domain.table.LeagueTable
+import com.example.footballproject.utils.CheckNetworkConnection
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

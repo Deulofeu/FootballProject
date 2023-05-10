@@ -1,8 +1,8 @@
 package com.example.footballproject.ui.matches
 
 import androidx.recyclerview.widget.RecyclerView
-import com.example.footballproject.CoilImageLoader.loadImage
 import com.example.footballproject.R
+import com.example.footballproject.utils.CoilImageLoader.loadImage
 import com.example.footballproject.databinding.RvMatchesBinding
 import com.example.footballproject.ui.models.matches.MatchViewState
 

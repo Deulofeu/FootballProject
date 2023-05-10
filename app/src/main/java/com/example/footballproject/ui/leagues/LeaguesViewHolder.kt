@@ -1,7 +1,7 @@
 package com.example.footballproject.ui.leagues
 
 import androidx.recyclerview.widget.RecyclerView
-import com.example.footballproject.CoilImageLoader.loadImage
+import com.example.footballproject.utils.CoilImageLoader.loadImage
 import com.example.footballproject.R
 import com.example.footballproject.databinding.RvLeaguesBinding
 import com.example.footballproject.ui.models.leagues.CompetitionView

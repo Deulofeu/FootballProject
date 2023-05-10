@@ -1,6 +1,6 @@
 package com.example.footballproject.ui.mappers.matches
 
-import com.example.footballproject.DateConverter
+import com.example.footballproject.utils.DateConverter
 import com.example.footballproject.domain.matches.Match
 import com.example.footballproject.ui.models.matches.MatchViewState
 import javax.inject.Inject
