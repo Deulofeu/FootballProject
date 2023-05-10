@@ -25,6 +25,7 @@ class FootballRepositoryImpl @Inject constructor(
 ) : FootballRepository {
     private val daoLeagues = database.getLeaguesDatabaseDao()
     private val daoMatches = database.getMatchesDatabaseDao()
+    private val daoLeagueTable = database.getLeagueTableDatabaseDao()
 
     override suspend fun getMatches(): Result<MatchesToday> {
         return if (checkNetworkConnection.isInternetAvailable()) {
@@ -78,15 +79,22 @@ class FootballRepositoryImpl @Inject constructor(
         return if (checkNetworkConnection.isInternetAvailable()) {
             withContext(Dispatchers.IO) {
                 val response = service.getLeagueTable(code)
-                val data = LeagueTable(
-                    response.standings?.map {
-                        leagueTableMapper.invoke(it)
-                    }?.toList().orEmpty()
-                )
+                val data = leagueTableMapper.invoke(response)
+                withContext(Dispatchers.IO) {
+                    val dataBaseList = leagueTableMapper.leagueTableDatabaseMapper(data)
+                    daoLeagueTable.insertAll(dataBaseList)
+                }
                 Result.Success(data)
             }
         } else withContext(Dispatchers.IO) {
-            Result.Success(LeagueTable(listOf()))
+            val dataBaseList = daoLeagueTable.getLeagueTable(code)
+            if (dataBaseList == null) {
+                val data = LeagueTable(0, "", listOf())
+                Result.Success(data)
+            } else {
+                val data = leagueTableMapper.leagueTableDatabaseToDataMapper(dataBaseList)
+                Result.Success(data)
+            }
         }
     }
 }
