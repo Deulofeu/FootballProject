@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="50dp"
-        android:contentDescription="@string/image_league"
+        android:contentDescription="@string/image_sad"
         android:src="@drawable/ic_sad_smile"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"

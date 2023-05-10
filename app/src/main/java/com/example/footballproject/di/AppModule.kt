@@ -2,7 +2,7 @@ package com.example.footballproject.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.footballproject.data.database.LeaguesDatabase
+import com.example.footballproject.data.database.AppDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,11 +14,11 @@ import dagger.hilt.components.SingletonComponent
 class AppModule {
 
     @Provides
-    fun createDatabase(@ApplicationContext context: Context): LeaguesDatabase {
+    fun createDatabase(@ApplicationContext context: Context): AppDatabase {
         return Room.databaseBuilder(
             context,
-            LeaguesDatabase::class.java,
-            "db_leagues"
+            AppDatabase::class.java,
+            "app_database"
         ).build()
     }
 }

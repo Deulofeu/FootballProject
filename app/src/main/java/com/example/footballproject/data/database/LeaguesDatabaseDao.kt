@@ -12,4 +12,7 @@ interface LeaguesDatabaseDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(itemDatabase: List<LeaguesDatabaseEntity>)
+
+    @Query("DELETE FROM db_leagues")
+    fun deleteAllFromTable()
 }

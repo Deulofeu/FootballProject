@@ -1,18 +1,17 @@
 package com.example.footballproject.data
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import com.example.footballproject.utils.CheckNetworkConnection
+
 import com.example.footballproject.Result
-import com.example.footballproject.data.database.LeaguesDatabase
+import com.example.footballproject.data.database.AppDatabase
 import com.example.footballproject.data.mappers.leagues.LeaguesMapper
 import com.example.footballproject.data.mappers.matches.MatchesMapper
 import com.example.footballproject.data.mappers.table.LeagueTableMapper
 import com.example.footballproject.data.network.FootballService
-import com.example.footballproject.domain.leagues.Leagues
 import com.example.footballproject.domain.FootballRepository
+import com.example.footballproject.domain.leagues.Leagues
 import com.example.footballproject.domain.matches.MatchesToday
 import com.example.footballproject.domain.table.LeagueTable
+import com.example.footballproject.utils.CheckNetworkConnection
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -23,23 +22,36 @@ class FootballRepositoryImpl @Inject constructor(
     private val leaguesMapper: LeaguesMapper,
     private val leagueTableMapper: LeagueTableMapper,
     private val matchesMapper: MatchesMapper,
-    database: LeaguesDatabase
+    database: AppDatabase
 ) : FootballRepository {
-    private val dao = database.getLeaguesDatabaseDao()
+    private val daoLeagues = database.getLeaguesDatabaseDao()
+    private val daoMatches = database.getMatchesDatabaseDao()
+    private val daoLeagueTable = database.getLeagueTableDatabaseDao()
 
     override suspend fun getMatches(): Result<MatchesToday> {
-        return withContext(Dispatchers.IO) {
-            val response = service.getMatches()
+        return if (checkNetworkConnection.isInternetAvailable()) {
+            withContext(Dispatchers.IO) {
+                val response = service.getMatches()
+                val data = MatchesToday(
+                    response.matches?.map {
+                        matchesMapper.invoke(it)
+                    }?.toList().orEmpty()
+                )
+                withContext(Dispatchers.IO) {
+                    daoMatches.deleteAllFromTable()
+                    val dataBaseList =
+                        data.matches.map { matchesMapper.matchesDatabaseMapper(it) }
+                    daoMatches.insertAll(dataBaseList)
+                }
+                Result.Success(data)
+            }
+        } else withContext(Dispatchers.IO) {
             val data = MatchesToday(
-                response.matches?.map {
-                    matchesMapper.invoke(it)
-                }?.toList().orEmpty()
-            )
+                daoMatches.getCashedTable().map { matchesMapper.matchesDatabaseToDataMapper(it) })
             Result.Success(data)
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
     override suspend fun getLeagues(): Result<Leagues> {
         return if (checkNetworkConnection.isInternetAvailable()) {
             withContext(Dispatchers.IO) {
@@ -49,32 +61,40 @@ class FootballRepositoryImpl @Inject constructor(
                         leaguesMapper(it)
                     }?.toList().orEmpty()
                 )
-                if (data.competitions.isNotEmpty()) {
-                    withContext(Dispatchers.IO) {
-                        val dataBaseList =
-                            data.competitions.map { leaguesMapper.leaguesDatabaseMapper(it) }
-                        dao.insertAll(dataBaseList)
-                    }
-                    Result.Success(data)
-                } else {
-                    Result.Error(IllegalArgumentException("Empty leagues list"))
+                withContext(Dispatchers.IO) {
+                    daoLeagues.deleteAllFromTable()
+                    val dataBaseList =
+                        data.competitions.map { leaguesMapper.leaguesDatabaseMapper(it) }
+                    daoLeagues.insertAll(dataBaseList)
                 }
+                Result.Success(data)
             }
         } else withContext(Dispatchers.IO) {
             val data = Leagues(
-                dao.getCashedTable().map { leaguesMapper.leaguesDatabaseToDataMapper(it) })
+                daoLeagues.getCashedTable().map { leaguesMapper.leaguesDatabaseToDataMapper(it) })
             Result.Success(data)
         }
     }
 
     override suspend fun getLeagueTable(code: String): Result<LeagueTable> {
-        return withContext(Dispatchers.IO) {
-            val response = service.getLeagueTable(code)
-            val data = leagueTableMapper.invoke(response)
-            if (data.standings.isNotEmpty()) {
+        return if (checkNetworkConnection.isInternetAvailable()) {
+            withContext(Dispatchers.IO) {
+                val response = service.getLeagueTable(code)
+                val data = leagueTableMapper.invoke(response)
+                withContext(Dispatchers.IO) {
+                    val dataBaseList = leagueTableMapper.leagueTableDatabaseMapper(data)
+                    daoLeagueTable.insertAll(dataBaseList)
+                }
+                Result.Success(data)
+            }
+        } else withContext(Dispatchers.IO) {
+            val dataBaseList = daoLeagueTable.getLeagueTable(code)
+            if (dataBaseList == null) {
+                val data = LeagueTable(0, "", listOf())
                 Result.Success(data)
             } else {
-                Result.Error(IllegalArgumentException("Empty league table"))
+                val data = leagueTableMapper.leagueTableDatabaseToDataMapper(dataBaseList)
+                Result.Success(data)
             }
         }
     }

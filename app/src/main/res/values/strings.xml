@@ -13,7 +13,11 @@
     <string name="points">PTS</string>
     <string name="image_league" translatable="false">League image</string>
     <string name="image_team" translatable="false">Team image</string>
+    <string name="image_sad" translatable="false">Sad image</string>
     <string name="unknown_error">Unknown error</string>
+    <string name="connection_error">Internet connection error</string>
     <string name="text_matches">No information about matches</string>
+    <string name="text_leagues">No information about leagues</string>
+    <string name="text_league_table">No information about table</string>
     <string name="update">Information will be added later</string>
 </resources>
