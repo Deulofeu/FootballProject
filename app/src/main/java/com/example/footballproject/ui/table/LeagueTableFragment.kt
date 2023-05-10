@@ -34,26 +34,43 @@ class LeagueTableFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        checkNetworkConnection()
         setupRecyclerView()
         initArgs()
 
         viewModel.viewLeagueTable.observe(viewLifecycleOwner) { standings ->
             when (standings) {
                 is LeagueTableView.ContentLeagueTable -> {
-                    binding.progressBar.visibility = View.GONE
-                    if (standings.standings[0].stage == GROUP_STAGE) {
-                        Toast.makeText(context, R.string.update, Toast.LENGTH_SHORT).show()
+                    if (standings.standings.isEmpty()) {
+                        binding.clTable.visibility = View.GONE
+                        binding.progressBar.visibility = View.GONE
+                        binding.ivSad.visibility = View.VISIBLE
+                        binding.textMessage.visibility = View.VISIBLE
                     } else {
-                        tablesAdapter.differ.submitList(standings.standings[0].table)
+                        binding.progressBar.visibility = View.GONE
+                        binding.ivSad.visibility = View.GONE
+                        binding.textMessage.visibility = View.GONE
+                        if (standings.standings[0].stage == GROUP_STAGE) {
+                            Toast.makeText(context, R.string.update, Toast.LENGTH_SHORT).show()
+                        } else {
+                            tablesAdapter.differ.submitList(standings.standings[0].table)
+                        }
                     }
-                }
-                is LeagueTableView.Error -> {
-                    binding.progressBar.visibility = View.GONE
                 }
                 is LeagueTableView.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
             }
+        }
+    }
+
+    private fun checkNetworkConnection() {
+        viewModel.checkNetworkConnection()
+        viewModel.checkNetworkLiveData.observe(viewLifecycleOwner) { checkNetwork ->
+            if (!checkNetwork)
+                Toast.makeText(
+                    context, getString(R.string.connection_error), Toast.LENGTH_SHORT
+                ).show()
         }
     }
 

@@ -1,27 +1,26 @@
 package com.example.footballproject.ui.matches
 
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.footballproject.R
 import com.example.footballproject.databinding.MatchesTodayFragmentBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MatchesTodayFragment : Fragment() {
+class MatchesTodayFragment() : Fragment() {
 
     private var _binding: MatchesTodayFragmentBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: MatchesTodayViewModel by viewModels()
 
-    private var mMatchesTodayAdapter = MatchesTodayAdapter()
+    private val mMatchesTodayAdapter = MatchesTodayAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -30,10 +29,11 @@ class MatchesTodayFragment : Fragment() {
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.M)
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        checkNetworkConnection()
         setupRecyclerView()
 
         viewModel.viewMatchesToday.observe(viewLifecycleOwner) { matches ->
@@ -45,12 +45,11 @@ class MatchesTodayFragment : Fragment() {
                         binding.textMessage.visibility = View.VISIBLE
                     } else {
                         binding.progressBar.visibility = View.GONE
+                        binding.ivSad.visibility = View.GONE
+                        binding.textMessage.visibility = View.GONE
                         mMatchesTodayAdapter.differ.submitList(matches.matchesToday.matches)
                     }
 
-                }
-                is MatchesTodayView.Error -> {
-                    binding.progressBar.visibility = View.GONE
                 }
                 is MatchesTodayView.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
@@ -61,6 +60,15 @@ class MatchesTodayFragment : Fragment() {
         viewModel.getMatchesToday()
     }
 
+    private fun checkNetworkConnection() {
+        viewModel.checkNetworkConnection()
+        viewModel.checkNetworkLiveData.observe(viewLifecycleOwner) { checkNetwork ->
+            if (!checkNetwork)
+                Toast.makeText(
+                    context, getString(R.string.connection_error), Toast.LENGTH_SHORT
+                ).show()
+        }
+    }
 
     private fun setupRecyclerView() {
         binding.rvMatches.adapter = mMatchesTodayAdapter

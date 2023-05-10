@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.footballproject.CheckNetworkConnection
 import com.example.footballproject.R
 import com.example.footballproject.Result
 import com.example.footballproject.domain.FootballRepository
@@ -17,9 +18,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MatchesTodayViewModel @Inject constructor(
+    private val checkNetworkConnection: CheckNetworkConnection,
     private val repository: FootballRepository,
     private val matchesMapper: MatchesMapperUI
 ) : ViewModel() {
+
+    private val _checkNetworkLiveData = MutableLiveData<Boolean>()
+    val checkNetworkLiveData: LiveData<Boolean> get() = _checkNetworkLiveData
 
     private val _viewMatchesToday = MutableLiveData<MatchesTodayView>()
     val viewMatchesToday: LiveData<MatchesTodayView> get() = _viewMatchesToday
@@ -33,9 +38,6 @@ class MatchesTodayViewModel @Inject constructor(
     fun getMatchesToday() = viewModelScope.launch(exceptionHandler) {
         _viewMatchesToday.postValue(MatchesTodayView.Loading)
         when (val result = repository.getMatches()) {
-            is Result.Error -> {
-                _viewMatchesToday.postValue(MatchesTodayView.Error)
-            }
             is Result.Success -> {
                 val matches = MatchesViewState(
                     result.data.matches.map {
@@ -54,5 +56,9 @@ class MatchesTodayViewModel @Inject constructor(
                 )
             }
         }
+    }
+
+    fun checkNetworkConnection() {
+        _checkNetworkLiveData.value = checkNetworkConnection.isInternetAvailable()
     }
 }

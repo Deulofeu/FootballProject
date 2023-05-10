@@ -12,6 +12,9 @@
     <string name="goals_difference">РМ</string>
     <string name="points">О</string>
     <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="connection_error">Ошибка подключения к интернету</string>
     <string name="text_matches">Нет информации о матчах</string>
+    <string name="text_leagues">Нет информации о лигах</string>
+    <string name="text_league_table">Нет информации о таблице</string>
     <string name="update">Информация будет добавлена позже</string>
 </resources>

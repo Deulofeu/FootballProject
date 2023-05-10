@@ -2,6 +2,7 @@ package com.example.footballproject.ui.matches
 
 import androidx.recyclerview.widget.RecyclerView
 import com.example.footballproject.CoilImageLoader.loadImage
+import com.example.footballproject.R
 import com.example.footballproject.databinding.RvMatchesBinding
 import com.example.footballproject.ui.models.matches.MatchViewState
 
@@ -12,8 +13,13 @@ class MatchesTodayViewHolder(
     fun bind(matchViewState: MatchViewState) {
         with(binding) {
             tvCompetition.text = matchViewState.competition.name
-            ivHomeTeamEmblem.loadImage(matchViewState.homeTeam.crest)
-            ivAwayTeamEmblem.loadImage(matchViewState.awayTeam.crest)
+            if (matchViewState.homeTeam.crest.isNotEmpty() && matchViewState.awayTeam.crest.isNotEmpty()) {
+                ivHomeTeamEmblem.loadImage(matchViewState.homeTeam.crest)
+                ivAwayTeamEmblem.loadImage(matchViewState.awayTeam.crest)
+            } else {
+                ivHomeTeamEmblem.setImageResource(R.drawable.ic_ball)
+                ivAwayTeamEmblem.setImageResource(R.drawable.ic_ball)
+            }
             tvHomeTeamName.text = matchViewState.homeTeam.name
             tvAwayTeamName.text = matchViewState.awayTeam.name
 
