@@ -1,9 +1,6 @@
 package com.example.footballproject.data.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface LeagueTableDatabaseDao {
@@ -11,7 +8,7 @@ interface LeagueTableDatabaseDao {
     @Query("SELECT * FROM db_league_table")
     fun getCashedTable(): List<LeagueTableDatabaseEntity>
 
-    @Query("SELECT * " + "FROM db_league_table " + "WHERE dbCode = :code")
+    @Query("SELECT * FROM db_league_table WHERE dbCode = :code")
     fun getLeagueTable(code: String): LeagueTableDatabaseEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
