@@ -52,6 +52,7 @@ class LeagueTableFragment : Fragment() {
                         binding.textMessage.visibility = View.GONE
                         if (standings.standings[0].stage == GROUP_STAGE) {
                             Toast.makeText(context, R.string.update, Toast.LENGTH_SHORT).show()
+                            binding.textMessage.visibility = View.VISIBLE
                         } else {
                             tablesAdapter.differ.submitList(standings.standings[0].table)
                         }
