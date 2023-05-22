@@ -85,7 +85,7 @@
 
     <TextView
         android:id="@+id/tvGoalsDifference"
-        android:layout_width="17dp"
+        android:layout_width="21dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="10dp"
@@ -96,7 +96,7 @@
 
     <TextView
         android:id="@+id/tvPoints"
-        android:layout_width="17dp"
+        android:layout_width="21dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="8dp"
