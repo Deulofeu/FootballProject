@@ -36,8 +36,8 @@ class MatchesTodayViewHolder(
                 }
                 PAUSED -> {
                     tvMatchDate.text = FIRST_HALF
-                    tvHomeTeamScore.text = matchViewState.score.fullTime.home.toString()
-                    tvAwayTeamScore.text = matchViewState.score.fullTime.away.toString()
+                    tvHomeTeamScore.text = matchViewState.score.halfTime.home.toString()
+                    tvAwayTeamScore.text = matchViewState.score.halfTime.away.toString()
                 }
                 FINISHED -> {
                     tvMatchDate.text = FINISHED
@@ -46,6 +46,11 @@ class MatchesTodayViewHolder(
                 }
                 POSTPONED -> {
                     tvMatchDate.text = POSTPONED
+                    tvHomeTeamScore.text = "-"
+                    tvAwayTeamScore.text = "-"
+                }
+                SUSPENDED -> {
+                    tvMatchDate.text = SUSPENDED
                     tvHomeTeamScore.text = "-"
                     tvAwayTeamScore.text = "-"
                 }
@@ -68,6 +73,7 @@ class MatchesTodayViewHolder(
         const val PAUSED: String = "PAUSED"
         const val FINISHED: String = "FINISHED"
         const val POSTPONED: String = "POSTPONED"
+        const val SUSPENDED: String = "SUSPENDED"
         const val SCHEDULED: String = "SCHEDULED"
         const val FIRST_HALF: String = "FIRST HALF"
         const val IN_PLAY: String = "IN_PLAY"

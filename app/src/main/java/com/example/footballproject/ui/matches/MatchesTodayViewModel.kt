@@ -44,8 +44,8 @@ class MatchesTodayViewModel @Inject constructor(
                         matchesMapper.matchToMatchViewMapper(it)
                     }.toList().sortedWith(
                         compareBy(
-                            { it.status },
                             { it.competition.name },
+                            { it.utcDate },
                             { it.homeTeam.name })
                     )
                 )
